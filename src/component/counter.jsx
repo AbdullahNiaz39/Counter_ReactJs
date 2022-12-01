@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 class Counter extends Component {
   state = {
-    count: this.props.counter.value,
+    // count: this.props.counter.value,
     tags: ["tag1", "tag2", "tag3"],
   };
 
@@ -10,11 +10,20 @@ class Counter extends Component {
     fontSize: 10,
     fontWeight: "bold",
   };
+  ///class bagde
+  getBadgeClass() {
+    let classes = "badge m-2 badge-";
+    classes += this.props.counter.value === 0 ? "warning" : "primary";
 
-  handleEvent = (product) => {
-    console.log(product);
-    this.setState({ count: this.state.count + 1 });
-  };
+    return classes;
+  }
+  // display value
+  formatCode() {
+    const { value } = this.props.counter;
+
+    return value === 0 ? "zero" : value;
+  }
+
   renderTags() {
     if (this.state.tags.length === 0) return "There are no Tags in the list";
 
@@ -36,8 +45,8 @@ class Counter extends Component {
           {this.formatCode()}
         </span>
         <button
-          onClick={() => this.handleEvent({ id: 1 })}
-          className="btn btn-secondary "
+          onClick={() => this.props.onIncrement(this.props.counter)}
+          className="btn btn-secondary"
         >
           Increament
         </button>
@@ -51,15 +60,6 @@ class Counter extends Component {
         <h6>{this.renderTags()}</h6>
       </div>
     );
-  }
-  getBadgeClass() {
-    let classes = "badge m-2 badge-";
-    classes += this.state.count === 0 ? "warning" : "primary";
-    return classes;
-  }
-  formatCode() {
-    const { count } = this.state;
-    return count === 0 ? "zero" : count;
   }
 }
 
